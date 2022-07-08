@@ -1,6 +1,0 @@
-com\mori\demo\dao\UserDao.class
-com\mori\demo\service\impl\UserServiceImpl.class
-com\mori\demo\domain\User.class
-com\mori\demo\servlet\MyServlet.class
-com\mori\demo\service\UserService.class
-com\mori\demo\dao\impl\UserDaoImpl.class
