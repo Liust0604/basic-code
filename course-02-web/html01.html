@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        td {
+            border: 1px solid;
+        }
+
+        .banner_div {
+            height: 530px;
+        }
+
+        .banner {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+
+    document.write("<table align='center'>");
+
+    for (let i = 1; i <= 9; i++) {
+        document.write("<tr>");
+        for (let j = 1; j <= i; j++) {
+            document.write("<td>");
+            document.write(i + " * " + j + " = " + (i * j) + "&nbsp&nbsp");
+            document.write("</td>");
+        }
+        //document.write("<br>");
+        document.write("</tr>");
+    }
+
+    document.write("</table>");
+
+    document.write("<hr>");
+
+    /*random [0.000,1.000) -> *100  [0,100)-> [0,99] -> [1,100] */
+    document.write(Math.floor(Math.random() * 100) + 1);
+
+    document.write("<hr>");
+
+</script>
+
+<div class="banner_div">
+    <div class="banner">
+        <img id="banner_img">
+    </div>
+</div>
+
+<script>
+    var img = document.getElementById("banner_img");
+    let num = 1;
+    setInterval(function () {
+        if (num > 3) num = 1;
+        img.src = "img/banner0" + num++ + ".jpg";
+    }, 1500);
+
+    document.write("<hr>");
+</script>
+
+
+<div style="height: 80px;text-align: center">
+    <p> 经过 <span id="lab">5</span> 秒后自动跳转页面 </p>
+</div>
+
+<!--
+<script>
+    var lab = document.getElementById("lab");
+    let tim = 5;
+    const id = setInterval(function () {
+        if (tim < 0) tim = 5;
+        lab.innerHTML = tim;
+        if (tim == 0) {
+            clearInterval(id)
+            location.href = "https://www.baidu.com";
+        }
+        tim&#45;&#45;;
+    }, 1000)
+    document.write("<hr>");
+</script>
+-->
+
+<div style="height: 80px;text-align: center">
+    <input type="button" id="btn" value="获取当前窗口历史记录个数">
+</div>
+
+<script>
+    var btn = document.getElementById("btn");
+    btn.onclick = function () {
+        var len = history.length;
+        alert(len);
+    }
+</script>
+</body>
+</html>

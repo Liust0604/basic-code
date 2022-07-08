@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        #info_div {
+            text-align: center;
+        }
+
+        #footer, #table_div {
+            text-align: center;
+        }
+
+        #footer {
+            height: 100px;
+        }
+
+        #table {
+            height: auto;
+            width: 60%;
+            margin: 0 auto;
+            border: 1px solid;
+        }
+
+        #table th, td {
+            border: 1px solid;
+        }
+
+        .over {
+            background: aqua;
+        }
+
+        .out {
+            background: transparent;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            var all = document.getElementById("all");
+            var never = document.getElementById("never");
+            var back = document.getElementById("back");
+
+            all.onclick = function () {
+                const checkboxs = document.getElementsByName("check") || [];
+                for (let i = 0; i < checkboxs.length; i++) {
+                    const checkbox = checkboxs[i];
+                    checkbox.checked = true;
+                }
+            }
+
+            never.onclick = function () {
+                const checkboxs = document.getElementsByName("check") || [];
+                for (let i = 0; i < checkboxs.length; i++) {
+                    const checkbox = checkboxs[i];
+                    checkbox.checked = false;
+                }
+            }
+
+            back.onclick = function () {
+                const checkboxs = document.getElementsByName("check") || [];
+                for (let i = 0; i < checkboxs.length; i++) {
+                    const checkbox = checkboxs[i];
+                    checkbox.checked = !(checkbox.checked || false);
+                }
+            }
+
+            const trs = document.getElementsByTagName("tr");
+            for (let i = 1; i < trs.length; i++) {
+                const tr = trs[i];
+                tr.onmouseover = function over() {
+                    this.className = "over";
+                };
+                tr.onmouseout = function out() {
+                    this.className = "out";
+                };
+            }
+        }
+
+        function firstSelect(el) {
+            const checkboxs = document.getElementsByName("check") || [];
+            for (let i = 0; i < checkboxs.length; i++) {
+                const checkbox = checkboxs[i];
+                checkbox.checked = el.checked;
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div id="info_div">
+    <div id="table_div">
+        <table id="table">
+            <caption>学生信息表</caption>
+
+            <tr>
+                <th><input type="checkbox" name="check" onclick="firstSelect(this)"></th>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>操作</th>
+            </tr>
+
+            <tr>
+                <td><input type="checkbox" name="check"></td>
+                <td>1</td>
+                <td>A</td>
+                <td>男</td>
+                <td>操作</td>
+            </tr>
+
+            <tr>
+                <td><input type="checkbox" name="check"></td>
+                <td>2</td>
+                <td>B</td>
+                <td>男</td>
+                <td>操作</td>
+            </tr>
+
+            <tr>
+                <td><input type="checkbox" name="check"></td>
+                <td>3</td>
+                <td>C</td>
+                <td>女</td>
+                <td>操作</td>
+            </tr>
+
+
+        </table>
+    </div>
+    <div id="footer">
+        <input type="button" value="全选" id="all">
+        <input type="button" value="全不选" id="never">
+        <input type="button" value="反选" id="back">
+    </div>
+</div>
+</body>
+</html>

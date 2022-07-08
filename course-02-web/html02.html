@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        #info_div {
+            text-align: center;
+        }
+
+        #head, #table_div {
+            text-align: center;
+        }
+
+        #head {
+            height: 80px;
+        }
+
+        #table {
+            height: auto;
+            width: 60%;
+            margin: 0 auto;
+            border: 1px solid;
+        }
+
+        #table th, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+<div id="info_div">
+    <div id="head">
+        <input id="info_no">
+        <input id="info_name">
+        <input id="info_sex">
+        <input type="button" value="添加" onclick="addClick()">
+    </div>
+    <div id="table_div">
+        <table id="table" title="学生信息表">
+            <tr>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>操作</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    var table = document.getElementById("table");
+
+    //通过Dom来添加元素
+    /*    function addClick() {
+            var info_no = document.getElementById("info_no");
+            var info_name = document.getElementById("info_name");
+            var info_sex = document.getElementById("info_sex");
+
+            const no = info_no.value;
+            const name = info_name.value;
+            const sex = info_sex.value;
+            var infos = [no, name, sex];
+
+            const tr = document.createElement("tr");
+            for (let i = 0; i < 3; i++) {
+                const td = document.createElement("td");
+                td.appendChild(document.createTextNode(infos[i]));  //添加文本结点
+                tr.appendChild(td);
+            }
+            const del_td = document.createElement("td");
+            const a = document.createElement("a");
+            a.appendChild(document.createTextNode("删除"));
+            a.setAttribute("href", "javascript:void(0);");
+            a.setAttribute("onclick", "trDel(this)"); //this 代表调用这个方法的元素
+            del_td.appendChild(a);
+            tr.appendChild(del_td);
+            table.appendChild(tr);
+        }
+
+        function trDel(el) {
+            var tr = el.parentNode.parentNode; //得到当前元素a所在的行tr
+            var table = el.parentNode.parentNode.parentNode; //得到当前元素a所在的行tr
+            table.removeChild(tr);
+        }*/
+
+    //通过innerHTML 改变标签体
+    function addClick() {
+        var info_no = document.getElementById("info_no");
+        var info_name = document.getElementById("info_name");
+        var info_sex = document.getElementById("info_sex");
+
+        const no = info_no.value;
+        const name = info_name.value;
+        const sex = info_sex.value;
+
+        table.innerHTML += "<tr>" +
+            "<td>" + no + "</td>" +
+            "<td>" + name + "</td>" +
+            "<td>" + sex + "</td>" +
+            "<td><a href='javascript:void(0);' onclick='trDel(this)'>删除</a></td>" +
+            "</tr>";
+    }
+
+    function trDel(el) {
+        var tr = el.parentNode.parentNode; //得到当前元素a所在的行tr
+        var table = el.parentNode.parentNode.parentNode; //得到当前元素a所在的行tr
+        table.removeChild(tr);
+    }
+
+</script>
+
+</body>
+</html>

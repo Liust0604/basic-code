@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>dom操作</title>
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/jquery-migrate-1.2.1.js"></script>
+
+        <script>
+            $(function () {
+                $("#myinput").val("小红");
+
+                //固有属性用prop，自定义属性用attr
+                console.log("html()", $("#mydiv").html());
+                console.log("text()", $("#mydiv").text());
+                console.log("val()", $("#myinput").val());
+                console.log("-------------------------------")
+                $("#bj").attr("name", "dabeijing");
+                console.log($("#bj").attr("name"));
+                $("#bj").removeAttr("name");
+                $("#bj").attr("desc", "didu");
+                console.log($("#hobby").prop("checked"));
+
+                console.log("-------------------------------")
+
+                const $citys = $("#city > li")
+                //遍历
+                for (let i = 0; i < $citys.length; i++) {
+                    const city = $citys[i];
+                    //console.log(city.innerText);
+                }
+
+                //数组
+                $citys.each(function (i, e) {
+                    //获取li对象：1、this 2、定义参数 (i,e)
+                    //console.log(i, $(e).html(), this.innerText);
+                });
+
+                //数组(i,e)、对象(k,v)
+                $.each($citys, function (i, e) {
+                    //获取li对象：1、this 2、定义参数 (i,e)
+                    console.log(i, $(e).html(), this.innerText);
+                });
+
+                for (li of $citys) {
+                    // console.log(li.innerText);
+                }
+
+                console.log("-------------------------------")
+
+                $("#name").click(function () {
+                    console.log("click1")
+                });
+
+                $("#name").focus();  //不传入回调函数，直接触发浏览器默认行为，获取焦点  //可以提交表单 $表单对象.submit()
+
+                //on绑定
+                $("#name").on("click", function () {
+                    console.log("click2")
+                });
+                //off 解绑 //若 $jq对象.off() 不传入事件名，则会解绑全部事件
+                $("#name").off("click");
+
+                //链式编程
+                $("#name").on("mouseover", function () {
+                    console.log("鼠标进入")
+                }).on("mouseout", function () {
+                    console.log("鼠标出去")
+                });
+
+                //toggle 单击切换方法
+                //高版本不支持，需要引入jquery-migrate插件
+                $("#toggle_btn").toggle(function () {
+                    console.log("点击1");
+                }, function () {
+                    console.log("点击2");
+                });
+
+            })
+        </script>
+    </head>
+    <body>
+        <input id="myinput" type="text" name="username" value="张三"/><br/>
+        <div id="mydiv"><p><a href="#">标题标签</a></p></div>
+
+        <hr>
+
+        <ul>
+            <li id="bj" name="beijing" xxx="yyy">北京</li>
+            <li id="tj" name="tianjin">天津</li>
+        </ul>
+        <input type="checkbox" id="hobby"/>
+
+        <hr>
+
+        <ul id="city">
+            <li>北京</li>
+            <li>上海</li>
+            <li>天津</li>
+            <li>重庆</li>
+        </ul>
+
+        <hr>
+
+        <input id="name" type="text" value="绑定点击事件">
+
+        <input type="button" id="toggle_btn" value="toggle"></input>
+
+        <hr>
+
+
+    </body>
+</html>

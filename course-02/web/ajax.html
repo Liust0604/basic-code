@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AJAX 技术</title>
+        <script src="js/jquery-3.3.1.min.js"></script>
+
+        <script>
+            //发送异步请求
+            const asyncJSFun = function () {
+                //1、创建核心对象
+                var xhttp;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
+                }
+                //2、建立连接
+                //(请求方式get post, 请求的url , true异步 false同步)
+                //get方式 参数拼接在url后
+                xhttp.open("GET", "ajaxServlet?username=tom&password=ABC", true); //相对路径，直接跟在虚拟路径之后
+                //3、发送请求
+                xhttp.send();
+
+                //post方式 参数在send里
+                /*xhttp.open("POST", "ajaxServlet", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=utf-8"); // 添加一个 HTTP 头部 。post请求一般都是这个方式
+                xhttp.send("username=tom&password=ABC");*/
+
+                //接收并处理服务器响应的结果
+                //xhttp.onreadystatechange  xhttp对象的就绪状态改变时，触发事件onreadystatechange
+                xhttp.onreadystatechange = function () {
+                    //xhttp对象就绪状态为4（请求已完成且响应已就绪），并且响应状态码为200（请求响应成功）
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("resp_text_js").innerHTML =
+                            this.responseText;
+                    }
+                };
+            }
+
+            const asyncJQFun = function () {
+                $.ajax({
+                    url: "ajaxServlet", //请求路径(相对路径)
+                    type: "POST", //请求方式
+                    //data: "username=tom&password=ABC",
+                    data: {       //请求参数
+                        "username": "$.ajax",
+                        "password": "123",
+                    },
+                    dataType: "text", //响应类型
+                    //回调函数
+                    success: function (data) {
+                        document.getElementById("resp_text_jq").innerHTML = data;
+                    },
+                    error: function (e) {
+                        document.getElementById("resp_text_jq").innerHTML = JSON.stringify(e.status);
+                    }
+                });
+
+                $.get("ajaxServlet", {
+                    "username": "$.get",
+                    "password": "123",
+                }, function (data) {
+                    document.getElementById("resp_text_jq_get").innerHTML = data;
+                }, "text");
+
+                $.post("ajaxServlet", {
+                    "username": "$.post",
+                    "password": "123",
+                }, function (data) {
+                    document.getElementById("resp_text_jq_post").innerHTML = data;
+                }, "text");
+            }
+
+        </script>
+    </head>
+    <body>
+
+        <input type="button" value="原生JQ发送异步请求" onclick="asyncJSFun()">
+        <span id="resp_text_js"></span>
+        <br>
+        <input type="button" value="JQUERY发送异步请求" onclick="asyncJQFun()">
+        <span id="resp_text_jq"></span> | <span id="resp_text_jq_get"></span> | <span id="resp_text_jq_post"></span>
+    </body>
+</html>

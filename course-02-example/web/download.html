@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>文件下载案例</title>
+    </head>
+    <body>
+        <!--需求是弹框提示下载文件。所以不能直接src=资源路径，这样会被浏览器直接解析-->
+        <a href="/course02/img/1.jpg">下载图片1</a> <br>
+        <a href="/course02/video/a.mp4">下载视频a</a>
+        <hr>
+        <!--通过指定一个Servlet统一实现-->
+        <a href="/course02/downloadServlet?filepath=/img/1.jpg">下载图片1</a> <br>
+        <a href="/course02/downloadServlet?filepath=/img/图片2.jpg">下载图片2</a> <br>
+        <a href="/course02/downloadServlet?filepath=/video/a.mp4">下载视频a</a>
+
+    </body>
+</html>

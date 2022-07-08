@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>注册页面</title>
+
+        <script src="js/jquery-3.3.1.min.js"></script>
+
+        <script>
+            const regist = function () {
+                alert("注册");
+            }
+
+            $(function () {
+                //初始化省份
+                $.get("provinceServlet", {}, function (data) {
+                    const provinces = data.provinces;
+                    if (provinces) {
+                        for (const i in provinces) {
+                            $("#selection").append($("<option>" + provinces[i].name + "</option>"));
+                        }
+                    }
+                }, "json");
+
+                //-------------------------
+                const $username = $("#username");
+                const $username_msg = $("#username_msg");
+                //用户失焦事件
+                $username.blur(function () {
+                    const username = $username.val();
+                    if (username == "") {
+                        $username_msg.text("");
+                    } else {
+                        $.get("checkUserNameServlet", {"username": username}, function (data) {
+                            //{"userExsit":true,"msg":""}
+                            $username_msg.text(data.msg || "");
+                            if (data.userExsit == true) {
+                                $username_msg.css("color", "green");
+                            } else {
+                                $username_msg.css("color", "blue");
+                            }
+                        }, "json");
+                    }
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+        <form>
+            <input type="text" id="username" name="username" placeholder="请输入用户名"> <span id="username_msg"></span>
+            <br>
+            <input type="password" id="password" name="password" placeholder="请输入密码">
+            <br>
+            <input type="submit" value="注册" onclick="regist()">
+        </form>
+
+        <br>
+
+        <select id="selection">
+            <option>请选择</option>
+        </select>
+    </body>
+</html>

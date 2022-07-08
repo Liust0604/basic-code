@@ -1,0 +1,11 @@
+<!ELEMENT students (student*) >
+<!ELEMENT student (name,age,sex)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
+<!ELEMENT sex (#PCDATA)>
+<!ATTLIST student number ID #REQUIRED>
+
+<!-- students 标签下为嵌套多个 student标签 -->
+<!-- student 标签下 为name,age,sex标签，只出现一次-->
+<!-- name,age,sex 标签下为字符串-->
+<!-- student 标签 有一个属性为number ，这个属性唯一(ID) ，且必须定义(#REQUIRED)-->

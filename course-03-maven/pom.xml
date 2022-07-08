@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mori.demo</groupId>
+    <artifactId>course-03-maven</artifactId> <!--项目标识名-->
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>course-03-maven Maven Webapp</name> <!--项目别名-->
+    <!-- FIXME change it to the project's website -->
+    <url>http://www.example.com</url>
+
+    <!--放置项目运行所依赖的jar包-->
+    <dependencies>
+        <!--junit 测试时使用-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--jsp 因为和tomcat内置的包冲突，所以编译时使用，运行时不使用-->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--servlet 因为和tomcat内置的包冲突，所以编译时使用，运行时不使用-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--注解 @WebServlet 因为和tomcat内置的包冲突，所以编译时使用，运行时不使用-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--mysql驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.28</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>course-03-maven</finalName>  <!--打包名-->
+
+        <!--plugins标签可以加载插件，idea识别-->
+        <plugins>
+            <!--设置tomcat插件 默认tomcat:run(tomcat6) ，改为tomcat7-->
+            <!--这里是添加tomcat，也就是和tomcat6同时存在，tomcat7:run-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration> <!--修改tomcat的配置-->
+                    <port>8888</port> <!--指定端口-->
+                    <path>/course-03-maven</path> <!--默认上面的/finalname，若配置tomcat的path，上面的finalname无效-->
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <!--pluginManagement标签只是对插件的一种声明 而不会对插件进行加载-->
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            <plugins>
+                <!--maven 生命周期相关jar包-->
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <source>1.8</source> <!--源代码开发使用jdk1.8-->
+                        <target>1.8</target> <!--编译代码使用jdk1.8-->
+                        <encoding>UTF-8</encoding> <!--指定编码-->
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

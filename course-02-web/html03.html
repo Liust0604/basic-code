@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        window.onload = function () {
+            var username_ipt = document.getElementById("username");
+            username_ipt.onfocus = function () {
+                console.log("得到焦点")
+            }
+            username_ipt.onblur = function () {
+                console.log("失去焦点")
+            }
+
+            username_ipt.onmouseover = function () {
+                console.log("鼠标移动")
+            }
+
+            username_ipt.onkeydown = function (event) {
+                console.log("键盘按下 " + event.keyCode);
+                if (event.keyCode == 13) {
+                    alert("提交表单");
+                }
+            }
+
+            document.getElementById("select").onchange = function (event) {
+                console.log("修改下拉框");
+            }
+
+            document.getElementById("form").onsubmit = function (event) {
+                //校验表单格式是否正确
+                var flag = true;
+
+                return flag;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<form id="form" action="#" method="get">
+    <input id="username" name="username">
+
+    <select id="select" name="select">
+        <option>请选择</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
+
+    <input type="submit">
+</form>
+
+</body>
+</html>

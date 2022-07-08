@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<students>
+    <student id="tom" number="no_01">
+        <name id="name1">tom</name>
+        <age>18</age>
+        <sex>male</sex>
+    </student>
+
+    <student number="no_02">
+        <name>lily</name>
+        <age>16</age>
+        <sex>female</sex>
+    </student>
+</students>
