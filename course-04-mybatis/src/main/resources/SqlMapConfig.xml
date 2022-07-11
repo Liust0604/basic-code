@@ -23,11 +23,14 @@
 
     <!--指定映射配置文件的位置-->
     <mappers>
-        <!--1、使用映射配置文件，指定每个dao在resources的独立的配置文件mapper.xml-->
+        <!--1、使用映射配置文件，指定每个dao在resources的独立的配置文件mapper.xml
+            配置了一个映射文件，映射的类是命名空间
+        -->
         <!--<mapper resource="com\mori\demo\mapper\UserMapper.xml"/>-->
         <!--2、使用注解，指定dao接口的全类名。此时不用在resources创建mapper.xml了
             可以理解为mapper.xml是单独指定了namespace，这里是直接指定了namespace，
-            所以两个namespace中的方法不能重名-->
+            所以两个namespace中的方法不能重名
+            配置了一个命名空间，映射文件可以通过命名空间找到类-->
         <mapper class="com.mori.demo.mapper.UserMapper"/>
     </mappers>
 </configuration>

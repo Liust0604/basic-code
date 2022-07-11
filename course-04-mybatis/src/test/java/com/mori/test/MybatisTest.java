@@ -15,14 +15,14 @@ public class MybatisTest {
     public static void main(String[] args) throws Exception {
         //1、读取配置文件
         InputStream is = Resources.getResourceAsStream("SqlMapConfig.xml");
-        //2、创建SQLSessionFactory工厂
+        //2、构建者模式 构建 SQLSessionFactory工厂
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(is);
-        //3、工厂生产SQLSession对象
+        //3、工厂模式 生产 SQLSession对象
         SqlSession session = factory.openSession();
-        //4、SQLSession对象创建Dao接口的代理对象
+        //4、代理模式，SQLSession对象 对Dao接口的进行代理，增加操作sql的功能
         UserMapper userMapper = session.getMapper(UserMapper.class);
-        //5、使用代理对象执行方法
+        //5、使用代理对象，执行方法
         List<User> list = userMapper.findAll();
         System.err.println(list);
         //6、释放资源
