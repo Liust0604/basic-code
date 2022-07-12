@@ -13,6 +13,8 @@ public class Test {
         Lenovo lenovo = new Lenovo();
 
         //2、动态代理，增强lenovo对象
+        //固定写法
+        //Proxy类的静态方法newProxyInstance(真实类的类加载器,真实类的接口数组,处理器InvocationHandler 一个匿名内部类[如何代理])
         SaleComputer LenovoProxy = (SaleComputer) Proxy.newProxyInstance(lenovo.getClass().getClassLoader(), lenovo.getClass().getInterfaces(), new InvocationHandler() {
             /**
              * 代理逻辑编写的方法，代理对象调用的所有方法，都会触发该方法执行
