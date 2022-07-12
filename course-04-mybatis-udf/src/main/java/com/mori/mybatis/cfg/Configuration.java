@@ -1,5 +1,6 @@
 package com.mori.mybatis.cfg;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,7 +11,7 @@ public class Configuration {
     private String url;
     private String username;
     private String password;
-    Map<String, Mapper> mappers;
+    Map<String, Mapper> mappers = new HashMap<>();
 
     public String getDriver() {
         return driver;
