@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--mybatis的主配置文件-->
+<!--1、mybatis约束-->
+<configuration>
+    <!--配置环境-->
+    <environments default="mysql">
+        <!--2、配置mysql的环境-->
+        <environment id="mysql">
+            <!--配置事务类型，指定为JDBC-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--3、配置数据源（连接池）-->
+            <dataSource type="POOLED">
+                <!--配置连接数据库的4个基本信息-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/eesy_mybatis"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--4、映射配置-->
+    <mappers>
+        <!--1、使用映射配置文件，指定每个dao在resources的独立的配置文件mapper.xml
+             配置mapper.xml -> mapper.xml 指定命名空间 -> 映射select标签里的sql
+        -->
+        <!--<mapper resource="com\mori\demo\mapper\UserMapper.xml"/>-->
+        <!--2、使用注解，指定dao接口的全类名。
+             配置命名空间 -> 映射类里的@Select注解里的sql -->
+        <mapper class="com.mori.demo.mapper.UserMapper"/>
+    </mappers>
+</configuration>
