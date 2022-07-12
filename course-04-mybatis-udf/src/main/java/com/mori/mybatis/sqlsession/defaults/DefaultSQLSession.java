@@ -2,7 +2,7 @@ package com.mori.mybatis.sqlsession.defaults;
 
 import com.mori.mybatis.cfg.Configuration;
 import com.mori.mybatis.sqlsession.SqlSession;
-import com.mori.mybatis.sqlsession.proxy.MapperProxy;
+import com.mori.mybatis.sqlsession.proxy.MapperProxyFactory;
 import com.mori.mybatis.utils.DataSourceUtil;
 
 import java.lang.reflect.Proxy;
@@ -35,7 +35,7 @@ public class DefaultSQLSession implements SqlSession {
         // 被代理类的接口数组：因为传入的dao接口本身就是接口，所以直接放到数组里即可
         // 如何代理：自定义一个代理类，必须实现处理器InvocationHandler接口
         return (T) Proxy.newProxyInstance(daoInterfaceClass.getClassLoader(),
-                new Class[]{daoInterfaceClass}, new MapperProxy(this.cfg.getMappers(), this.conn));
+                new Class[]{daoInterfaceClass}, new MapperProxyFactory(this.cfg.getMappers(), this.conn));
 
     }
 

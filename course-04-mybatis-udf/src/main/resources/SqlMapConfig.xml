@@ -19,8 +19,8 @@
     <!--4、映射配置-->
     <mappers>
         <!--1、使用映射配置文件-->
-        <mapper resource="com\mori\demo\mapper\UserMapper.xml"/>
+        <!--<mapper resource="com\mori\demo\mapper\UserMapper.xml"/>-->
         <!--2、使用注解 -->
-        <!--<mapper class="com.mori.demo.mapper.UserMapper"/>-->
+        <mapper class="com.mori.demo.mapper.UserMapper"/>
     </mappers>
 </configuration>

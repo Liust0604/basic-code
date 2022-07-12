@@ -11,13 +11,13 @@ import java.util.Map;
 /**
  * 代理
  */
-public class MapperProxy implements InvocationHandler {
+public class MapperProxyFactory implements InvocationHandler {
 
     //<工作空间全类名.方法名,映射信息>
     private Map<String, Mapper> mappers;
     private Connection conn;
 
-    public MapperProxy(Map<String, Mapper> mappers, Connection conn) {
+    public MapperProxyFactory(Map<String, Mapper> mappers, Connection conn) {
         this.mappers = mappers;
         this.conn = conn;
     }

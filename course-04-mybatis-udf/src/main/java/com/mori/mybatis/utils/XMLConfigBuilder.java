@@ -2,6 +2,7 @@ package com.mori.mybatis.utils;
 
 //import com.mori.mybatis.annotations.Select;
 
+import com.mori.mybatis.annotations.Select;
 import com.mori.mybatis.cfg.Configuration;
 import com.mori.mybatis.cfg.Mapper;
 import com.mori.mybatis.io.Resources;
@@ -12,6 +13,9 @@ import org.dom4j.io.SAXReader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,14 +92,14 @@ public class XMLConfigBuilder {
                     //给configuration中的mappers赋值
                     cfg.setMappers(mappers);
                 } else {
-                    /*System.out.println("使用的是注解");
+                    System.out.println("使用的是注解");
                     //表示没有resource属性，用的是注解
                     //获取class属性的值
                     String daoClassPath = mapperElement.attributeValue("class");
                     //根据daoClassPath获取封装的必要信息
                     Map<String, Mapper> mappers = loadMapperAnnotation(daoClassPath);
                     //给configuration中的mappers赋值
-                    cfg.setMappers(mappers);*/
+                    cfg.setMappers(mappers);
                 }
             }
             //返回Configuration
@@ -167,7 +171,7 @@ public class XMLConfigBuilder {
      * @param daoClassPath
      * @return
      */
-/*    private static Map<String, Mapper> loadMapperAnnotation(String daoClassPath) throws Exception {
+    private static Map<String, Mapper> loadMapperAnnotation(String daoClassPath) throws Exception {
         //定义返回值对象
         Map<String, Mapper> mappers = new HashMap<String, Mapper>();
 
@@ -186,18 +190,19 @@ public class XMLConfigBuilder {
                 Select selectAnno = method.getAnnotation(Select.class);
                 String queryString = selectAnno.value();
                 mapper.setQueryString(queryString);
-                //获取当前方法的返回值，还要求必须带有泛型信息
-                Type type = method.getGenericReturnType();//List<User>
+                //获取当前方法的返回值，还要求必须带有泛型信息。Generic表示带有泛型
+                Type type = method.getGenericReturnType();// type : List<User>
                 //判断type是不是参数化的类型
                 if (type instanceof ParameterizedType) {
                     //强转
                     ParameterizedType ptype = (ParameterizedType) type;
                     //得到参数化类型中的实际类型参数
+                    //数组的原因：当前List<T>,只有一个类型，若Map<K,Y>,有两个类型，所以要用数组
                     Type[] types = ptype.getActualTypeArguments();
                     //取出第一个
-                    Class domainClass = (Class) types[0];
+                    Class domainClass = (Class) types[0]; //List明显只有一个类型，所以取第一个类型即可
                     //获取domainClass的类名
-                    String resultType = domainClass.getName();
+                    String resultType = domainClass.getName(); //resultType : User
                     //给Mapper赋值
                     mapper.setResultType(resultType);
                 }
@@ -211,7 +216,7 @@ public class XMLConfigBuilder {
             }
         }
         return mappers;
-    }*/
+    }
 
 
 }
