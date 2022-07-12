@@ -2,10 +2,10 @@ package com.mori.test;
 
 import com.mori.demo.domain.User;
 import com.mori.demo.mapper.UserMapper;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.mori.mybatis.io.Resources;
+import com.mori.mybatis.sqlsession.SqlSession;
+import com.mori.mybatis.sqlsession.SqlSessionFactory;
+import com.mori.mybatis.sqlsession.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
 import java.util.List;
@@ -29,5 +29,5 @@ public class MybatisTest {
         session.close();
         is.close();
     }
-    
+
 }

@@ -1,7 +1,6 @@
 package com.mori.demo.mapper;
 
 import com.mori.demo.domain.User;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -10,7 +9,5 @@ import java.util.List;
  * (使用Mybatis框架，不用写实现类。通过SQLSessionFactory得到的SQLSession对象，创建接口的代理对象)
  */
 public interface UserMapper {
-
-    @Select("select * from eesy_mybatis.user")
     List<User> findAll();
 }
