@@ -1,5 +1,6 @@
 package com.mori.demo.mapper;
 
+import com.mori.demo.domain.QueryVo;
 import com.mori.demo.domain.User;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,6 +12,61 @@ import java.util.List;
  */
 public interface UserMapper {
 
+    /**
+     * 查询所有用户
+     *
+     * @return
+     */
     @Select("select * from eesy_mybatis.user")
     List<User> findAll();
+
+    /**
+     * 保存用户
+     *
+     * @param user
+     */
+    void saveUser(User user);
+
+    /**
+     * 修改用户
+     *
+     * @param user
+     */
+    void updateUser(User user);
+
+    /**
+     * 根据id删除用户
+     *
+     * @param userId
+     */
+    void deleteUser(Integer userId);
+
+    /**
+     * 根据id查询用户
+     *
+     * @return
+     */
+    User findById(Integer userId);
+
+    /**
+     * 根据姓名模糊查询用户
+     *
+     * @return
+     */
+    List<User> findByName(String username);
+
+    /**
+     * 查询总用户数
+     *
+     * @return
+     */
+    int findTotal();
+
+    /**
+     * 根据QueryVo中的查询条件，查询用户
+     *
+     * @return
+     */
+    List<User> findUserByVo(QueryVo vo);
+
 }

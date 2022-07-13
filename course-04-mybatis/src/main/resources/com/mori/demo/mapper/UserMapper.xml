@@ -3,7 +3,60 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mori.demo.mapper.UserMapper">
+
+    <!--查询所有用户-->
     <!--<select id="findAll" resultType="com.mori.demo.domain.User">
         select * from eesy_mybatis.user ;
     </select>-->
+
+    <!--添加用户-->
+    <insert id="saveUser" parameterType="com.mori.demo.domain.User" >
+        insert into eesy_mybatis.user
+        (username,birthday,sex,address)
+        values
+        (#{username},#{birthday},#{sex},#{address})
+
+        <!-- 获取插入记录的id -->
+        <!-- keyProperty：对应实体属性名，keyColumn：对应数据表字段名，resultType: resultType：返回的数据类型，order：什么时候执行-->
+        <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+    </insert>
+
+    <!--更新用户-->
+    <update id="updateUser" parameterType="com.mori.demo.domain.User">
+        update eesy_mybatis.user
+        set username = #{username},
+            birthday = #{birthday},
+            sex = #{sex},
+            address = #{address}
+        where id = #{id}
+    </update>
+
+    <!--删除用户-->
+    <update id="deleteUser" parameterType="java.lang.Integer">
+        delete from eesy_mybatis.user
+        where id = #{userId}
+    </update>
+
+    <!--查询一个用户-->
+    <select id="findById" parameterType="int" resultType="com.mori.demo.domain.User">
+        select * from eesy_mybatis.user where id = #{userId};
+    </select>
+
+    <!--模糊查询用户-->
+    <select id="findByName" parameterType="java.lang.String" resultType="com.mori.demo.domain.User">
+        <!-- select * from eesy_mybatis.user where username like #{username}; -->
+        select * from eesy_mybatis.user where username like '%${value}%';
+    </select>
+
+    <!--查询总用户数-->
+    <select id="findTotal" resultType="int">
+        select count(id) from eesy_mybatis.user ;
+    </select>
+
+    <!--根据QueryVo中的查询条件，查询用户-->
+    <select id="findUserByVo" parameterType="com.mori.demo.domain.QueryVo" resultType="com.mori.demo.domain.User">
+        select * from eesy_mybatis.user where username like #{user.username};
+    </select>
 </mapper>
