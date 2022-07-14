@@ -3,6 +3,27 @@
 <!--mybatis的主配置文件-->
 <!--1、mybatis约束-->
 <configuration>
+
+    <!--配置properties-->
+    <!--1、可以标签内定义属性-->
+    <!--2、也可以引用外部配置文件信息。resource属性：指定配置文件路径，类路径，且必须存在于类路径下-->
+    <properties resource="jdbcConfig.properties">
+        <!--<property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/eesy_mybatis"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>-->
+    </properties>
+
+    <!--配置domain中类的别名-->
+    <!--这也是就为什么默认在mapper.xml中基本类型写成int/Integer…都可以识别出来-->
+    <typeAliases>
+        <!--type:实体类全限定类名 alias：别名-->
+        <!--指定的别名不区分大小写-->
+        <!--<typeAlias type="com.mori.demo.domain.User" alias="user"></typeAlias>-->
+        <!--指定要配置别名的包，该包下所有实体类都会注册别名，且类名就是别名，不区分大小写-->
+        <package name="com.mori.demo.domain"/>
+    </typeAliases>
+
     <!--配置环境-->
     <environments default="mysql">
         <!--2、配置mysql的环境-->
@@ -12,10 +33,10 @@
             <!--3、配置数据源（连接池）-->
             <dataSource type="POOLED">
                 <!--配置连接数据库的4个基本信息-->
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/eesy_mybatis"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
@@ -28,6 +49,8 @@
         <!--<mapper resource="com\mori\demo\mapper\UserMapper.xml"/>-->
         <!--2、使用注解，指定dao接口的全类名。
              配置命名空间 -> 映射类里的@Select注解里的sql -->
-        <mapper class="com.mori.demo.mapper.UserMapper"/>
+        <!--<mapper class="com.mori.demo.mapper.UserMapper"/>-->
+        <!--直接指定dao接口所在的包，指定后就不用再写mapper标签了-->
+        <package name="com.mori.demo.mapper"/>
     </mappers>
 </configuration>
