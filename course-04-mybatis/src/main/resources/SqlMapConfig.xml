@@ -31,6 +31,12 @@
             <!--配置事务类型，指定为JDBC-->
             <transactionManager type="JDBC"></transactionManager>
             <!--3、配置数据源（连接池）-->
+            <!--POOLED：传统javax.sql.DataSource规范中的连接池,mybatis中有针对规范的实现-->
+            <!--UNPOOLED：传统获取连接方式,虽然也实现DataSource接口，但没有使用池的思想-->
+            <!--JNDI：通过服务器提供的JNDI技术实现。获取DataSource对象，不同服务器拿到的DataSource不同
+                只有web或maven的war工程才能使用。
+                如tomcat，采用的就是dbcp连接池
+            -->
             <dataSource type="POOLED">
                 <!--配置连接数据库的4个基本信息-->
                 <property name="driver" value="${jdbc.driver}"/>
