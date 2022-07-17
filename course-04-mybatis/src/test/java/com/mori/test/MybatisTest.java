@@ -27,12 +27,14 @@ public class MybatisTest {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(is);
         session = factory.openSession();
+        //session = factory.openSession(true); //自动提交，通常是单个crud操作时使用
         userMapper = session.getMapper(UserMapper.class);
     }
 
     @After
     public void close() throws Exception {
-        //提交事务
+        // 手动提交事务
+        // 若初始化时 session = factory.openSession(true); 则会自动提交,session.commit()手动提交可省略
         session.commit();
         //释放资源
         session.close();
