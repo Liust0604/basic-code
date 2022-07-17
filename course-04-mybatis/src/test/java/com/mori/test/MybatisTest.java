@@ -1,7 +1,9 @@
 package com.mori.test;
 
+import com.mori.demo.domain.Account;
 import com.mori.demo.domain.QueryVo;
 import com.mori.demo.domain.User;
+import com.mori.demo.mapper.AccountMapper;
 import com.mori.demo.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class MybatisTest {
     private InputStream is;
     private SqlSession session;
     private UserMapper userMapper;
+    private AccountMapper accountMapper;
 
     @Before
     public void init() throws Exception {
@@ -29,6 +33,7 @@ public class MybatisTest {
         session = factory.openSession();
         //session = factory.openSession(true); //自动提交，通常是单个crud操作时使用
         userMapper = session.getMapper(UserMapper.class);
+        accountMapper = session.getMapper(AccountMapper.class);
     }
 
     @After
@@ -146,5 +151,62 @@ public class MybatisTest {
         vo.setUser(user);
         List<User> users = userMapper.findUserByVo(vo);
         System.err.println(users);
+    }
+
+    //动态sql
+
+    /**
+     * 根据条件查询
+     */
+    @Test
+    public void testFindUserByCondition() {
+        User user = new User();
+        user.setUsername("小二王");
+        user.setSex("男");
+        List<User> users = userMapper.findUserByCondition(user);
+        System.err.println(users);
+    }
+
+    /**
+     * 根据id集合查询
+     */
+    @Test
+    public void testFindUserByIds() {
+        QueryVo vo = new QueryVo();
+        List<Integer> list = new ArrayList<>();
+        list.add(42);
+        list.add(46);
+        list.add(51);
+        vo.setIds(list);
+        List<User> users = userMapper.findUserByIds(vo);
+        System.err.println(users);
+    }
+
+    //多表查询
+
+    /**
+     * 一对多（用户和账户）
+     */
+    @Test
+    public void testAccount() {
+        //直接查询
+        List<Account> list = accountMapper.findAll();
+        System.err.println(list);
+        System.err.println("=========");
+
+        //多表查询
+        //1、查询账户时，可以得到账户所属用户信息
+        List<Account> accounts = accountMapper.findAllWithUser();
+        for (Account account : accounts) {
+            System.err.println(account);
+        }
+        System.err.println("=========");
+
+        //2、查询用户时，可得到用户下所包含的账户信息
+        List<User> users = userMapper.findAllWithAccount();
+        for (User user : users) {
+            System.err.println(user);
+        }
+        System.err.println("=========");
     }
 }

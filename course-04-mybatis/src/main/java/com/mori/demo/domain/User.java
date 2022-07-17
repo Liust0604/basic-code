@@ -2,6 +2,7 @@ package com.mori.demo.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User 实体类
@@ -13,6 +14,10 @@ public class User implements Serializable {
     private String sex;
     private String address;
 
+    //一对多(用户和账户)：主表实体应该包含从表实体集合引用
+    //一个用户可以有多个账户，多个账户可以属于一个用户，一个账户只能属于一个用户
+    private List<Account> accounts;
+
     @Override
     public String toString() {
         return "User{" +
@@ -21,6 +26,7 @@ public class User implements Serializable {
                 ", birthday=" + birthday +
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
+                ", accounts=" + accounts +
                 '}';
     }
 
@@ -62,5 +68,13 @@ public class User implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 }

@@ -69,4 +69,22 @@ public interface UserMapper {
      */
     List<User> findUserByVo(QueryVo vo);
 
+
+    /**
+     * 根据传入参数条件查询
+     *
+     * @param user
+     * @return
+     */
+    List<User> findUserByCondition(User user);
+
+    /**
+     * 根据 id 集合查询用户信息
+     *
+     * @param vo
+     * @return
+     */
+    List<User> findUserByIds(QueryVo vo);
+
+    List<User> findAllWithAccount();
 }
