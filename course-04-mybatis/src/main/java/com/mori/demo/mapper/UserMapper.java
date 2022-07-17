@@ -87,4 +87,6 @@ public interface UserMapper {
     List<User> findUserByIds(QueryVo vo);
 
     List<User> findAllWithAccount();
+
+    List<User> findAllWithRole();
 }

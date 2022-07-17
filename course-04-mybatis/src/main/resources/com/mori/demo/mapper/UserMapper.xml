@@ -20,6 +20,19 @@
         </collection>
     </resultMap>
 
+    <resultMap id="userRoleMap" type="user">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+        <result property="birthday" column="birthday"></result>
+        <collection property="roles" ofType="role">
+            <id property="id" column="role_id"></id>
+            <result property="roleName" column="role_name"></result>
+            <result property="roleDesc" column="role_desc"></result>
+        </collection>
+    </resultMap>
+
     <!--查询所有用户-->
     <!--<select id="findAll" resultType="com.mori.demo.domain.User">
         select * from eesy_mybatis.user ;
@@ -36,6 +49,21 @@
             eesy_mybatis.user u
         left join  eesy_mybatis.account a
         on u.id = a.uid
+    </select>
+
+    <!--查询所有用户,关联角色-->
+    <select id="findAllWithRole" resultMap="userRoleMap">
+        select
+            u.*,
+            r.id as role_id,
+            r.ROLE_NAME as role_name,
+            r.ROLE_NAME as role_desc
+        from
+            eesy_mybatis.user u
+        left join eesy_mybatis.user_role t on
+            u.id = t.uid
+        left join eesy_mybatis.role r on
+            t.rid = r.id
     </select>
 
     <!--添加用户-->

@@ -2,8 +2,10 @@ package com.mori.test;
 
 import com.mori.demo.domain.Account;
 import com.mori.demo.domain.QueryVo;
+import com.mori.demo.domain.Role;
 import com.mori.demo.domain.User;
 import com.mori.demo.mapper.AccountMapper;
+import com.mori.demo.mapper.RoleMapper;
 import com.mori.demo.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -24,6 +26,7 @@ public class MybatisTest {
     private SqlSession session;
     private UserMapper userMapper;
     private AccountMapper accountMapper;
+    private RoleMapper roleMapper;
 
     @Before
     public void init() throws Exception {
@@ -34,6 +37,7 @@ public class MybatisTest {
         //session = factory.openSession(true); //自动提交，通常是单个crud操作时使用
         userMapper = session.getMapper(UserMapper.class);
         accountMapper = session.getMapper(AccountMapper.class);
+        roleMapper = session.getMapper(RoleMapper.class);
     }
 
     @After
@@ -204,6 +208,32 @@ public class MybatisTest {
 
         //2、查询用户时，可得到用户下所包含的账户信息
         List<User> users = userMapper.findAllWithAccount();
+        for (User user : users) {
+            System.err.println(user);
+        }
+        System.err.println("=========");
+    }
+
+    /**
+     * 多对多（用户和角色）
+     */
+    @Test
+    public void testRole() {
+        //直接查询
+        List<Role> list = roleMapper.findAll();
+        System.err.println(list);
+        System.err.println("=========");
+
+        //多表查询
+        //1、查询角色时，可以得到角色赋予的用户信息
+        List<Role> roles = roleMapper.findAllWithUser();
+        for (Role role : roles) {
+            System.err.println(role);
+        }
+        System.err.println("=========");
+
+        //2、查询用户时，可得到用户下所包含的账户信息
+        List<User> users = userMapper.findAllWithRole();
         for (User user : users) {
             System.err.println(user);
         }

@@ -18,6 +18,9 @@ public class User implements Serializable {
     //一个用户可以有多个账户，多个账户可以属于一个用户，一个账户只能属于一个用户
     private List<Account> accounts;
 
+    //多对多的关系映射：添加一个对方实体的集合引用
+    private List<Role> roles;
+
     @Override
     public String toString() {
         return "User{" +
@@ -27,6 +30,7 @@ public class User implements Serializable {
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
                 ", accounts=" + accounts +
+                ", roles=" + roles +
                 '}';
     }
 
@@ -76,5 +80,13 @@ public class User implements Serializable {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }
